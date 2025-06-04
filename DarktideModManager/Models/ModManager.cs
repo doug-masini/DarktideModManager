@@ -11,6 +11,7 @@ namespace DarktideModManager.Models;
 public class ModManager
 {
     public const string SETTINGS_FILE = "settings.json";
+    public const string WARHAMMER_FOLDER_NAME = "Warhammer 40,000 DARKTIDE";
     private ModLoaderSettings _settings;
     public ObservableCollection<string> ZipFiles { get; private set; } = [];
     public ModManager(ref ModLoaderSettings settings)
