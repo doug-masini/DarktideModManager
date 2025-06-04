@@ -7,15 +7,18 @@ using Avalonia.Platform.Storage;
 using Avalonia.ReactiveUI;
 using DarktideModManager.ViewModels;
 using ReactiveUI;
+using Avalonia.Interactivity;
+using System;
 
 namespace DarktideModManager.Views;
 
 public partial class MainWindow : ReactiveWindow<MainViewModel>
 {
+
     public MainWindow()
     {
         InitializeComponent();
-        this.WhenActivated(d => d(ViewModel.ShowOpenFileDialog.RegisterHandler(ShowOpenFileDialog)));
+         this.Loaded += MainWindow_Loaded;
         this.SizeToContent = SizeToContent.Manual;
         if(Screens.Primary != null)
         {
@@ -24,6 +27,15 @@ public partial class MainWindow : ReactiveWindow<MainViewModel>
             Position = new PixelPoint((int)(Screens.Primary.Bounds.Width * 0.01), (int)(Screens.Primary.Bounds.Height * 0.01)); //1% from left and top
         }
     }
+
+    private void MainWindow_Loaded(object? sender, RoutedEventArgs e)
+    {
+        if(ViewModel != null)
+        {
+            ViewModel.ShowOpenFileDialog.RegisterHandler(ShowOpenFileDialog);
+        }
+    }
+
     private async Task ShowOpenFileDialog(IInteractionContext<Unit, string?> interaction)
     {
         IStorageProvider storageProvider = this.StorageProvider;

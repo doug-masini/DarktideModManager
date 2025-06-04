@@ -9,6 +9,7 @@ public class ModLoaderSettings
     public string? ModLoaderGameDirectory { get; set; }
     public string? ModLoaderModsDirectory { get; private set; }
 
+
     [JsonConstructor]
     public ModLoaderSettings(string modLoaderGameDirectory)
     {

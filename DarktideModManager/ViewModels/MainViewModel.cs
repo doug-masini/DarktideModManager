@@ -24,7 +24,7 @@ public class MainViewModel : ViewModelBase
     {
         ShowOpenFileDialog = new Interaction<Unit, string?>();
         _modLoaderSettings = new ModLoaderSettings(string.Empty);
-        _modLoaderViewModel = new ModLoaderViewModel(ref _modLoaderSettings);
+        _modLoaderViewModel = new ModLoaderViewModel(ref _modLoaderSettings, ShowOpenFileDialog);
         CurrentView = _modLoaderViewModel;
     }
     
