@@ -23,7 +23,7 @@ public class MainViewModel : ViewModelBase
     public MainViewModel()
     {
         ShowOpenFileDialog = new Interaction<Unit, string?>();
-        _modLoaderSettings = new ModLoaderSettings(string.Empty);
+        _modLoaderSettings = ModManager.LoadSettings();
         _modLoaderViewModel = new ModLoaderViewModel(ref _modLoaderSettings, ShowOpenFileDialog);
         CurrentView = _modLoaderViewModel;
     }

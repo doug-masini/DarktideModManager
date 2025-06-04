@@ -36,13 +36,15 @@ public class ModLoaderViewModel : ViewModelBase
     {
         ParentShowOpenFileDialog = showOpenFileDialog;
         _settings = settings;
-        GameDirectoryText = "TEST";
         _modManager = new ModManager(ref _settings);
         OpenFolderCommand = ReactiveCommand.CreateFromTask(RunOpenFolder);
         InstallModsCommand = ReactiveCommand.Create(RunInstallMods);
-        ZipFiles.Add("test");
+        GameDirectoryText = _settings.ModLoaderGameDirectory ?? "Select the Darktide Game Directory";
+        ZipFiles = _modManager.ZipFiles;
     }
+
     
+
     private async Task RunOpenFolder()
     {
         var folderName = await ParentShowOpenFileDialog.Handle(Unit.Default);
@@ -61,6 +63,7 @@ public class ModLoaderViewModel : ViewModelBase
     }
     private void RunInstallMods()
     {
-        GameDirectoryText = "Installing Mods...";
+        if(ZipFiles.Count > 0)
+            _modManager.InstallMods();
     }
 }
