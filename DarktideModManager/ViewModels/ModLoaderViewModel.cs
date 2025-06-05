@@ -16,7 +16,7 @@ public class ModLoaderViewModel : ViewModelBase
     private ObservableCollection<string> InstalledMods { get; } = [];
     private readonly ModManager _modManager = null!;
     
-    private string _gameDirectoryText = "Test";
+    private string _gameDirectoryText = GAME_DIRECTORY_TEXT;
     public string GameDirectoryText
     {
         get => _gameDirectoryText;
@@ -26,6 +26,9 @@ public class ModLoaderViewModel : ViewModelBase
             _settings.ModLoaderGameDirectory = value;
         }
     }
+    
+    private bool _isValidFolderSelected;
+    public bool IsValidFolderSelected { get => _isValidFolderSelected; private set => this.RaiseAndSetIfChanged(ref _isValidFolderSelected, value); }
     
     private string _statusText = string.Empty;
     public string StatusText
@@ -51,11 +54,8 @@ public class ModLoaderViewModel : ViewModelBase
         _modManager = new ModManager(ref _settings);
         OpenFolderCommand = ReactiveCommand.CreateFromTask(RunOpenFolder);
         InstallModsCommand = ReactiveCommand.Create(RunInstallMods);
-        if (!string.IsNullOrEmpty(_settings.ModLoaderGameDirectory))
-            GameDirectoryText = _settings.ModLoaderGameDirectory;
-        else
-            StatusText = GAME_DIRECTORY_TEXT;
-            
+        SetGameFolder(_settings.ModLoaderGameDirectory);
+        
         ZipFiles = _modManager.ZipFiles;
         InstalledMods = _modManager.InstalledMods;
     }
@@ -73,11 +73,23 @@ public class ModLoaderViewModel : ViewModelBase
     }
     private void SetGameFolder(string? folderName)
     {
-        if (folderName == null) return;
-        if (folderName.Contains(ModManager.WARHAMMER_FOLDER_NAME))
-            GameDirectoryText = folderName;
-        else
+        if (string.IsNullOrEmpty(folderName))
+        {
             StatusText = GAME_DIRECTORY_TEXT;
+            IsValidFolderSelected = false;
+            return;
+        }
+        
+        if (folderName.Contains(ModManager.WARHAMMER_FOLDER_NAME))
+        {
+            GameDirectoryText = folderName;
+            IsValidFolderSelected = true;
+        }
+        else
+        {
+            StatusText = GAME_DIRECTORY_TEXT;
+            IsValidFolderSelected = false;
+        }
     }
     private void RunInstallMods()
     {

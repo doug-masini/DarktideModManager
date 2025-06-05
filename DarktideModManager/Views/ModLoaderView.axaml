@@ -22,7 +22,7 @@
 
             <Button Classes="standardButton" Name="OpenFolderButton" Grid.Row="5" Grid.Column="0" Margin="15,5,15,10" HorizontalAlignment="Left" Content="Open Folder" MinWidth="100" Command="{Binding OpenFolderCommand}"></Button>
 
-            <Button Classes="standardButton" Name="InstallButton" Grid.Row="6" Grid.Column="0" Margin="15,5,15,15" HorizontalAlignment="Left" Content="Install"  Command="{Binding InstallModsCommand}"></Button>
+            <Button Classes="standardButton" Name="InstallButton" Grid.Row="6" Grid.Column="0" Margin="15,5,15,15" HorizontalAlignment="Left" Content="Install"  Command="{Binding InstallModsCommand}" IsEnabled="{Binding IsValidFolderSelected}"></Button>
           </Grid>
         </Border>
         <Border  Classes="userControlBorder" Margin="10">

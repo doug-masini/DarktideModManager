@@ -14,7 +14,7 @@ public class ModLoaderSettings
     public ModLoaderSettings(string modLoaderGameDirectory)
     {
         ModLoaderGameDirectory = modLoaderGameDirectory;
-        ModLoaderModsDirectory = $"{Environment.CurrentDirectory}/mods/";
+        ModLoaderModsDirectory = $"{Environment.CurrentDirectory}\\mods\\";
         InitializeModDirectory();
     }
     
