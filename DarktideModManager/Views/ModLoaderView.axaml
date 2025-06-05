@@ -10,15 +10,30 @@
          to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
     <viewModels:ModLoaderViewModel />
   </Design.DataContext>
-  <Grid Margin="5" RowDefinitions="auto,auto,auto,*,auto,auto,auto" ColumnDefinitions="Auto,Auto,Auto">
-    <Label Grid.Row="0" Grid.Column="0" Content="Mods ready to install:"></Label>
-    <ListBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="5" ItemsSource="{Binding Path=ZipFiles}"></ListBox>
-    <Label  Grid.Row="2" Grid.Column="0" Content="Game Folder"></Label>
-    <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Text="{Binding Path=GameDirectoryText, UpdateSourceTrigger=PropertyChanged}"  IsReadOnly="True" Margin="5" HorizontalAlignment="Left"/>
+  <StackPanel>
+      <WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch" >
+        <Border Classes="userControlBorder" Margin="10">
+          <Grid  Margin="5" RowDefinitions="auto,auto,auto,*,auto,auto,auto" ColumnDefinitions="Auto,Auto,Auto,Auto">
+            <Label Classes="gridTitle" Grid.Row="0" Grid.Column="0" Margin="5,5,15,15" Content="Mod Installer"></Label>
+            <Label Classes="textBoxLabel" Grid.Row="1" Grid.Column="0" Margin="15,5,15,1" Content="Mods ready to install:"></Label>
+            <ListBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="25,5,15,15" ItemsSource="{Binding Path=ZipFiles}"></ListBox>
+            <Label Classes="textBoxLabel" Grid.Row="3" Grid.Column="0" Margin="15,5,15,1" Content="Game Folder"></Label>
+            <TextBox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Margin="25,5,15,15" MinWidth="250" TextWrapping="Wrap" Text="{Binding Path=GameDirectoryText, UpdateSourceTrigger=PropertyChanged}"  IsReadOnly="True" HorizontalAlignment="Left"/>
 
-    <Button Name="OpenFolderButton" Grid.Row="4" Grid.Column="0" Margin="5" HorizontalAlignment="Left" Content="Open Folder" Width="100" Command="{Binding OpenFolderCommand}"></Button>
+            <Button Classes="standardButton" Name="OpenFolderButton" Grid.Row="5" Grid.Column="0" Margin="15,5,15,10" HorizontalAlignment="Left" Content="Open Folder" MinWidth="100" Command="{Binding OpenFolderCommand}"></Button>
 
-    <Button Name="InstallButton" Grid.Row="5" Grid.Column="0" Margin="5" HorizontalAlignment="Left" Content="Install" Width="100" Command="{Binding InstallModsCommand}"></Button>
-    <Label  Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3" Margin="5" Content="{Binding StatusText}"></Label>
-  </Grid>
+            <Button Classes="standardButton" Name="InstallButton" Grid.Row="6" Grid.Column="0" Margin="15,5,15,15" HorizontalAlignment="Left" Content="Install"  Command="{Binding InstallModsCommand}"></Button>
+          </Grid>
+        </Border>
+        <Border  Classes="userControlBorder" Margin="10">
+          <Grid  Margin="5" RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="Auto">
+            <Label Classes="gridTitle" Grid.Row="0" Grid.Column="0" Margin="5,5,15,15" Content="Installed Mods"></Label>
+            <Label Classes="textBoxLabel" Grid.Row="1" Grid.Column="0" Margin="15,5,15,1"  Content="Mod List:"></Label>
+            <ListBox Grid.Row="2" Grid.Column="0" Margin="25,5,15,15" ItemsSource="{Binding Path=InstalledMods}"></ListBox>
+          </Grid>
+        </Border>
+      </WrapPanel>
+
+    <Label Margin="15,5,15,1" Content="{Binding StatusText}"></Label>
+</StackPanel>
 </UserControl>

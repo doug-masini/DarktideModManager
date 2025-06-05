@@ -18,11 +18,12 @@ public partial class MainWindow : ReactiveWindow<MainViewModel>
     public MainWindow()
     {
         InitializeComponent();
-         this.Loaded += MainWindow_Loaded;
+        this.Loaded += MainWindow_Loaded;
         this.SizeToContent = SizeToContent.Manual;
         if(Screens.Primary != null)
         {
-            Height = Screens.Primary.Bounds.Height * 0.85; //85% of screen height
+            Height = Screens.Primary.Bounds.Height * 0.75; //75% of screen height
+            Width = Screens.Primary.Bounds.Width * 0.50; //50% of screen width
             WindowStartupLocation = WindowStartupLocation.Manual;
             Position = new PixelPoint((int)(Screens.Primary.Bounds.Width * 0.01), (int)(Screens.Primary.Bounds.Height * 0.01)); //1% from left and top
         }
@@ -30,10 +31,7 @@ public partial class MainWindow : ReactiveWindow<MainViewModel>
 
     private void MainWindow_Loaded(object? sender, RoutedEventArgs e)
     {
-        if(ViewModel != null)
-        {
-            ViewModel.ShowOpenFileDialog.RegisterHandler(ShowOpenFileDialog);
-        }
+        ViewModel?.ShowOpenFileDialog.RegisterHandler(ShowOpenFileDialog);
     }
 
     private async Task ShowOpenFileDialog(IInteractionContext<Unit, string?> interaction)

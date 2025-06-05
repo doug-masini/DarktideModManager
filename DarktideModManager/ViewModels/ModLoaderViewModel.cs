@@ -1,3 +1,4 @@
+using System;
 using System.Collections.ObjectModel;
 using System.Reactive;
 using System.Reactive.Linq;
@@ -11,7 +12,8 @@ public class ModLoaderViewModel : ViewModelBase
 {
     private const string GAME_DIRECTORY_TEXT = "Select the Darktide Game Directory";
     private readonly ModLoaderSettings _settings = null!;
-    private ObservableCollection<string> ZipFiles { get; set; } = [];
+    private ObservableCollection<string> ZipFiles { get; } = [];
+    private ObservableCollection<string> InstalledMods { get; } = [];
     private readonly ModManager _modManager = null!;
     
     private string _gameDirectoryText = "Test";
@@ -21,8 +23,7 @@ public class ModLoaderViewModel : ViewModelBase
         set
         {
             this.RaiseAndSetIfChanged(ref _gameDirectoryText, value);
-            if(_settings != null)
-                _settings.ModLoaderGameDirectory = value;
+            _settings.ModLoaderGameDirectory = value;
         }
     }
     
@@ -32,11 +33,11 @@ public class ModLoaderViewModel : ViewModelBase
         get => _statusText;
         set => this.RaiseAndSetIfChanged(ref _statusText, value);
     }
-    public Interaction<Unit, string?> ParentShowOpenFileDialog { get; private set; } = null!;
+
+    private Interaction<Unit, string?> ParentShowOpenFileDialog { get; } = null!;
     public ReactiveCommand<Unit, Unit> OpenFolderCommand { get; private set; } = null!;
     public ReactiveCommand<Unit, Unit> InstallModsCommand { get; private set; } = null!;
-    
-    
+
     /// <summary>
     /// Constructor for designer only
     /// </summary>
@@ -56,6 +57,7 @@ public class ModLoaderViewModel : ViewModelBase
             StatusText = GAME_DIRECTORY_TEXT;
             
         ZipFiles = _modManager.ZipFiles;
+        InstalledMods = _modManager.InstalledMods;
     }
 
     
@@ -90,8 +92,17 @@ public class ModLoaderViewModel : ViewModelBase
         }
         else
         {
-            _modManager.InstallMods();
-            StatusText = "Mods Installed";
+            try
+            {
+                _modManager.InstallMods();
+                StatusText = "Mods Installed";
+            }
+            catch (InvalidOperationException e)
+            {
+                Console.WriteLine(e.Message);
+                StatusText = e.Message;
+            }
+         
         }
     }
 }

@@ -11,5 +11,46 @@
   
     <Application.Styles>
         <FluentTheme />
+        <Style Selector="Border.userControlBorder">
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="BorderBrush" Value="#666666"/>
+        </Style>
+        <Style Selector="Label.viewTitle">
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+        </Style>
+        <Style Selector="Label.standardLabel">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Regular"/>
+            <Setter Property="Foreground" Value="#AFAFAF"/>
+        </Style>
+        <Style Selector="Label.textBoxLabel">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Regular"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+        </Style>
+        <Style Selector="TextBox.labelTextBox">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="IsHitTestVisible" Value="False"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="FontWeight" Value="Regular"/>
+            <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
+        </Style>
+        <Style Selector="Button.standardButton">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Padding" Value="12,6,12,6"/>
+            <Setter Property="FontWeight" Value="Regular"/>
+            <Setter Property="Background" Value="DarkCyan"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+        </Style>
+        <Style Selector="Label.gridTitle">
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+        </Style>
     </Application.Styles>
 </Application>

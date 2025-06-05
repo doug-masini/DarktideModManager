@@ -14,7 +14,16 @@
          to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
     <viewModels:MainViewModel />
   </Design.DataContext>
-  <Grid Margin="5" RowDefinitions="auto,auto,auto,*,auto,auto">
-    <ContentControl Margin="0,10,0,0" Grid.Row="0" Content="{Binding CurrentView}"/>
-  </Grid>
+  <ScrollViewer>
+    <StackPanel>
+      <Grid Margin="5,0,5,0" ColumnDefinitions="auto" RowDefinitions="auto">
+        <Label Grid.Column="0" Classes="viewTitle" Content="Darktide Mod Manager"/>
+      </Grid>
+     
+      <Border Margin="0,0,0,10"  BorderThickness="1" Opacity="75" BorderBrush="WhiteSmoke" />
+      <Grid Margin="5" RowDefinitions="auto,auto,auto,*,auto,auto">
+        <ContentControl Margin="0,10,0,0" Grid.Row="0" Content="{Binding CurrentView}"/>
+      </Grid>
+    </StackPanel>
+  </ScrollViewer>
 </Window>
